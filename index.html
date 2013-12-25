@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+<head>
+<title>Bangladesh Post Code List</title>
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+<link href="//netdna.bootstrapcdn.com/bootswatch/3.0.3/cyborg/bootstrap.min.css" rel="stylesheet">
+</head>
+<body ng-app="PostcodeApp">
+<div class="container" ng-controller="PostcodeController">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>{{ title }}</h1>
+        </div>
+        <div class="col-md-12">
+            <tabs tab-type="nav-justified">
+                <pane ng-repeat="(division, districts) in divisions" title="{{ division }}">
+                    <div class="col-md-4"><h2>District</h2></div>
+                    <div class="col-md-8"><h2>Thana</h2></div>
+                    <tabs tab-type="nav-stacked">
+                        <pane ng-repeat="(district, thanas) in districts" title="{{ district }}">
+                            <div ng-repeat="(thana, codes) in thanas" title="{{ thana }}">
+                                <h3>{{ thana }}</h3>
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th class="col-md-8">Suboffice</th>
+                                            <th>Postcode</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="code in codes">
+                                            <th>{{ code.0 }}</th>
+                                            <td>{{ code.1 }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </pane>
+                    </tabs>
+                </pane>
+            </tabs>
+        </div>
+    </div>
+    <noscript>
+        <div class="jumbotron">
+            Please enable javascript to view this site.
+            You may also visit
+            <a href="www.bangladeshpost.gov.bd/PostCode.asp">the official site</a>,
+            in case you don't like or unable to use javascript.
+        </div>
+    </noscript>
+</div>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.6/angular.min.js"></script>
+<script src="js/postcode.js"></script>
+</body>
+</html>
