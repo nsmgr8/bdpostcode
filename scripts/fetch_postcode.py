@@ -43,9 +43,11 @@ def get_codes():
 
         division = codes[division]
         for row in rows:
-            data = [col.text for col in row.findAll('td')]
+            district, thana, po, code = [col.text for col in row.findAll('td')]
+            if district == 'IBH WAs Here':
+                district = 'Bagerhat'
             # columns: district, thana, suboffice, postcode
-            division[data[0]][data[1]].append((data[2], data[3]))
+            division[district][thana].append((po, code))
 
     return codes
 

@@ -6,6 +6,23 @@ app.controller('PostcodeController', function($scope, $http) {
         $scope.divisions = data.data;
         $scope.source = data.meta.source;
         $scope.updated_at = data.meta.updated_at;
+
+        $scope.codes = [];
+        angular.forEach(data.data, function(dists, div) {
+            angular.forEach(dists, function(thanas, dist) {
+                angular.forEach(thanas, function(soffs, thana) {
+                    angular.forEach(soffs, function(code) {
+                        $scope.codes.push({
+                            'division': div,
+                            'district': dist,
+                            'thana': thana,
+                            'suboffice': code[0],
+                            'postcode': code[1]
+                        });
+                    });
+                });
+            });
+        });
     });
 });
 
@@ -16,7 +33,7 @@ app.directive('tabs', function() {
         scope: { tabType: '@' },
         controller: function($scope, $element) {
             var panes = $scope.panes = [];
-            if ($scope.tabType == 'nav-stacked') {
+            if ($scope.tabType.indexOf('nav-stacked') > 0) {
                 $scope.tabClass = 'col-md-4';
                 $scope.paneClass = 'col-md-8';
             } else {
