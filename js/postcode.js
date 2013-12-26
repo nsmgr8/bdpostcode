@@ -53,7 +53,7 @@ app.directive('tabs', function() {
                 panes.push(pane);
             }
         },
-        templateUrl: '/templates/tabs.html',
+        templateUrl: 'tabs.html',
         replace: true
     };
 });
