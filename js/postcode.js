@@ -2,7 +2,7 @@ var app = angular.module('PostcodeApp', []);
 
 app.controller('PostcodeController', function($scope, $http) {
     $scope.title = 'Bangladesh Post Code';
-    $http.get('data/postcode.json').success(function(data) {
+    $http.get('postcode.json').success(function(data) {
         $scope.divisions = data.data;
         $scope.source = data.meta.source;
         $scope.updated_at = data.meta.updated_at;
