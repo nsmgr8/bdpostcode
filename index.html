@@ -12,15 +12,18 @@
             <h1>{{ title }}</h1>
         </div>
         <div class="col-md-offset-8 col-md-4">
-            <input type="text" ng-model="search" placeholder="Search" class="form-control">
+            <div class="input-group">
+                <input type="text" ng-model="search" placeholder="Search" class="form-control">
+                <span class="input-group-btn">
+                    <button ng-click="search=''" class="btn btn-default">&times;</button>
+                </span>
+            </div>
         </div>
         <hr class="col-md-12">
         <div class="col-md-12">
             <tabs tab-type="nav-tabs nav-justified" ng-if="!search">
                 <pane ng-repeat="(division, districts) in divisions" title="{{ division }}">
-                    <div class="col-md-4"><h2>District</h2></div>
-                    <div class="col-md-8"><h2>Thana</h2></div>
-                    <tabs tab-type="nav-pills nav-stacked">
+                    <tabs tab-type="nav-pills nav-stacked" title="District" pane-header="Thana">
                         <pane ng-repeat="(district, thanas) in districts" title="{{ district }}">
                             <div ng-repeat="(thana, codes) in thanas" title="{{ thana }}">
                                 <div class="panel" ng-class-odd="'panel-success'" ng-class-even="'panel-info'">
@@ -30,7 +33,7 @@
                                     <table class="table table-striped">
                                         <thead>
                                             <tr>
-                                                <th class="col-md-8">Post office</th>
+                                                <th class="col-xs-6">Post office</th>
                                                 <th>Postcode</th>
                                             </tr>
                                         </thead>
@@ -47,14 +50,14 @@
                     </tabs>
                 </pane>
             </tabs>
-            <div class="col-md-4" ng-repeat="po in codes | filter: {suboffice: search}" ng-if="search">
+            <div class="col-sm-4" ng-repeat="po in codes | filter: {suboffice: search}" ng-if="search">
                 <div class="panel" ng-class-odd="'panel-success'" ng-class-even="'panel-info'">
                     <div class="panel-heading">
                         <h3 class="panel-title">{{ po.suboffice }} <small>PO</small></h3>
                     </div>
                     <table class="table table-striped">
                         <tr>
-                            <th>Division</th>
+                            <th class="col-xs-6">Division</th>
                             <td>{{ po.division }}</td>
                         </tr>
                         <tr>

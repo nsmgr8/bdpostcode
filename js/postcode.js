@@ -30,12 +30,12 @@ app.directive('tabs', function() {
     return {
         restrict: 'E',
         transclude: true,
-        scope: { tabType: '@' },
+        scope: { tabType: '@', title: '@', paneHeader: '@' },
         controller: function($scope, $element) {
             var panes = $scope.panes = [];
             if ($scope.tabType.indexOf('nav-stacked') > 0) {
-                $scope.tabClass = 'col-md-4';
-                $scope.paneClass = 'col-md-8';
+                $scope.tabClass = 'col-sm-4';
+                $scope.paneClass = 'col-sm-8';
             } else {
                 $scope.tabClass = 'col-md-12';
                 $scope.paneClass = 'col-md-12';
