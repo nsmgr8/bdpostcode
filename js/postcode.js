@@ -2,7 +2,7 @@ var app = angular.module('PostcodeApp', []);
 
 app.controller('PostcodeController', function($scope, $http) {
     $scope.title = 'Bangladesh Post Code';
-    $http.get('data/postcode.json').success(function(data) {
+    $http.get('/data/postcode.json').success(function(data) {
         $scope.divisions = data.data;
         $scope.source = data.meta.source;
         $scope.updated_at = data.meta.updated_at;
@@ -30,12 +30,12 @@ app.directive('tabs', function() {
     return {
         restrict: 'E',
         transclude: true,
-        scope: { tabType: '@' },
+        scope: { tabType: '@', title: '@', paneHeader: '@' },
         controller: function($scope, $element) {
             var panes = $scope.panes = [];
             if ($scope.tabType.indexOf('nav-stacked') > 0) {
-                $scope.tabClass = 'col-md-4';
-                $scope.paneClass = 'col-md-8';
+                $scope.tabClass = 'col-sm-4';
+                $scope.paneClass = 'col-sm-8';
             } else {
                 $scope.tabClass = 'col-md-12';
                 $scope.paneClass = 'col-md-12';
