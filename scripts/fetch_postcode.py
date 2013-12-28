@@ -21,6 +21,12 @@ def get_codes():
     """
     codes = defaultdict(lambda: defaultdict(lambda: defaultdict(list)))
 
+    counts = {
+        'divisions': 0,
+        'districts': 0,
+        'thanas': 0,
+        'offices': 0,
+    }
     for i in range(10):
         response = requests.get(LIST_PAGE.format(i))
         if response.status_code != 200:
@@ -41,23 +47,35 @@ def get_codes():
         if not division:
             continue
 
+        counts['divisions'] += 1
         division = codes[division]
+        pdist, pthana = '', ''
         for row in rows:
             district, thana, po, code = [col.text for col in row.findAll('td')]
             if district == 'IBH WAs Here':
                 district = 'Bagerhat'
-            # columns: district, thana, suboffice, postcode
+
+            if pdist != district:
+                pdist = district
+                counts['districts'] += 1
+            if pthana != thana:
+                pthana = thana
+                counts['thanas'] += 1
+            counts['offices'] += 1
+
             division[district][thana].append((po, code))
 
-    return codes
+    return codes, counts
 
 
 if __name__ == '__main__':
+    data, counts = get_codes()
     codes = {
-        'data': get_codes(),
+        'data': data,
         'meta': {
             'updated_at': datetime.utcnow().isoformat(),
             'source': SOURCE,
+            'counts': counts,
         },
     }
     print(json.dumps(codes))

@@ -6,6 +6,7 @@ app.controller('PostcodeController', function($scope, $http) {
         $scope.divisions = data.data;
         $scope.source = data.meta.source;
         $scope.updated_at = data.meta.updated_at;
+        $scope.stats = data.meta.counts;
 
         $scope.codes = [];
         angular.forEach(data.data, function(dists, div) {
@@ -72,4 +73,15 @@ app.directive('pane', function() {
             '</div>',
         replace: true
     };
+});
+
+app.filter('titlecase', function () {
+    return function (input) {
+        var words = input.split(' ');
+        for (var i = 0; i < words.length; i++) {
+            words[i] = words[i].toLowerCase();
+            words[i] = words[i].charAt(0).toUpperCase() + words[i].slice(1);
+        }
+        return words.join(' ');
+    }
 });
